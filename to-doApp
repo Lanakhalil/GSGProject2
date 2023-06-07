@@ -1,0 +1,141 @@
+// Task constructor function
+function Task(description, dueDate, priority) {
+  this.description = description;
+  this.dueDate = dueDate;
+  this.priority = priority;
+  this.completed = false;
+}
+
+// Array to store the tasks
+const tasks = [];
+
+// Function to add a new task
+function addTask() {
+  const description = prompt("Enter task description:");
+  const dueDate = prompt("Enter task due date:");
+  const priority = prompt("Enter task priority:");
+
+  const task = new Task(description, dueDate, priority);
+  tasks.push(task);
+  console.log("Task added successfully!");
+}
+
+// Function to list all tasks
+function listAllTasks() {
+  if (tasks.length === 0) {
+    console.log("No tasks found.");
+  } else {
+    console.log("All tasks:");
+    tasks.forEach((task, index) => {
+      console.log(`${index + 1}. ${task.description} (Due: ${task.dueDate}, Priority: ${task.priority}) - ${task.completed ? 'Completed' : 'Incomplete'}`);
+    });
+  }
+}
+
+// Function to list completed tasks
+function listCompletedTasks() {
+  const completedTasks = tasks.filter(task => task.completed);
+  if (completedTasks.length === 0) {
+    console.log("No completed tasks found.");
+  } else {
+    console.log("Completed tasks:");
+    completedTasks.forEach((task, index) => {
+      console.log(`${index + 1}. ${task.description} (Due: ${task.dueDate}, Priority: ${task.priority})`);
+    });
+  }
+}
+
+// Function to mark a task as completed
+function markTaskAsCompleted() {
+  const index = prompt("Enter the index of the task to mark as completed:") - 1;
+  if (index >= 0 && index < tasks.length) {
+    tasks[index].completed = true;
+    console.log("Task marked as completed!");
+  } else {
+    console.log("Invalid task index.");
+  }
+}
+
+// Function to delete a task
+function deleteTask() {
+  const index = prompt("Enter the index of the task to delete:") - 1;
+  if (index >= 0 && index < tasks.length) {
+    tasks.splice(index, 1);
+    console.log("Task deleted successfully!");
+  } else {
+    console.log("Invalid task index.");
+  }
+}
+
+// Function to sort tasks by due date
+function sortByDueDate() {
+  tasks.sort((task1, task2) => new Date(task1.dueDate) - new Date(task2.dueDate));
+  console.log("Tasks sorted by due date!");
+}
+
+// Function to sort tasks by priority
+function sortByPriority() {
+  tasks.sort((task1, task2) => task1.priority - task2.priority);
+  console.log("Tasks sorted by priority!");
+}
+
+// Function to clear all tasks
+function clearAllTasks() {
+  tasks.length = 0;
+  console.log("All tasks cleared!");
+}
+
+// Main function
+function todoApp() {
+  console.log("***************************");
+  console.log("Welcome to JS TODO-APP");
+  console.log("***************************");
+  console.log("Select an action:");
+  console.log("1) Add a new task");
+  console.log("2) List all tasks");
+  console.log("3) List completed tasks");
+  console.log("4) Mark a task as completed");
+  console.log("5) Delete a task");
+  console.log("6) Sort tasks by due date");
+  console.log("7) Sort tasks by priority");
+  console.log("8) Clear all tasks");
+  console.log("***************************");
+
+  const choice = prompt("What's your choice?");
+
+  switch (choice) {
+    case '1':
+      addTask();
+      break;
+    case '2':
+      listAllTasks();
+      break;
+    case '3':
+      listCompletedTasks();
+      break;
+    case '4':
+      markTaskAsCompleted();
+      break;
+    case '5':
+      deleteTask();
+      break;
+    case '6':
+      sortByDueDate();
+      break;
+    case '7':
+      sortByPriority();
+      break;
+    case '8':
+      clearAllTasks();
+      break;
+    default:
+      console.log("Invalid choice.");
+      break;
+  }
+
+  console.log("\n");
+  todoApp();
+}
+
+// Start the application
+todoApp();
